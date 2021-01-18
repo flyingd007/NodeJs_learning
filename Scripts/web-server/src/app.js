@@ -6,20 +6,28 @@ const  express = require('express')
 const app=express()
 
 const publicPathDir = path.join(__dirname,'../public');
+
+app.set('view engine','hbs')
 app.use(express.static(publicPathDir))
 
 app.get('',(req,res) => {
-    res.send("Hello World!")
+    res.render('index',{
+        title:'Email'
+    })
 })
 
-app.get('/help',(req,res) => {
-    res.send("Help Page")
-})
 
 app.get('/about',(req,res) => {
-    res.send('<h1>About page<h1>')
+    res.render('about')
 })
 
+app.get('/help',(req,res)=>{
+    res.render('help',{
+        help1 : "Do this",
+        help2 : "Do that",
+        help3 : "Do what"
+    })
+})
 app.get('/weather',(req,res) => {
     res.send({
         place_name:'New Delhi',
