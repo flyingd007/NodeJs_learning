@@ -72,7 +72,7 @@ const Self_Assesment_Form = mongoose.model('Self_Assesment_Form',{
     },
     ActiveTillDateTime : {
         type : Date,
-        require : true
+        required : true
     }
 })
 
@@ -166,6 +166,63 @@ const Filled_Eval_Forms = mongoose.model('Filled_Eval_Forms',{
     Answers : {
         type : [{Answer_no : Number,Answer : String}]
     },
+})
+
+
+const Project = mongoose.model('Project',{
+    Project_Id:{
+        type : String,
+        required : true,
+        trim : true,
+    },
+   Name : {
+        type : String,
+        required : true,
+        trim : true,
+    },
+    Description : {
+        type : String,
+        required : true,
+        trim : true,
+    }
+})
+
+const Project_Employee_Relation = mongoose.model('Project_Employee_Relation',{
+    Project_Id:{
+        type : String,
+        required : true,
+        trim : true,
+    },
+    Email : {
+        unique : true,
+        type : String,
+        required : true,
+        trim : true,
+        lowercase : true,
+        Validate(value){
+            if(!validator.isEmail(value))
+            {
+                throw new Error('Email format not correct')
+            }
+        }   
+    },
+    DateTo : {
+        type : Date,
+        required : true
+    },
+    DateFrom : {
+        type : Date,
+        required : true
+    },
+    JobDescription : {
+        type : String,
+        required : true,
+        trim : true,
+    },
+    Remarks : {
+        type : String,
+        trim : true,
+    }
 })
 
 // const _2020Q4 = new Self_Assesment_Form({
